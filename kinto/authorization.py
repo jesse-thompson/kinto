@@ -26,27 +26,27 @@ from kinto.core import authorization as core_authorization
 PERMISSIONS_INHERITANCE_TREE = {
     "root": {"bucket:create": {}, "write": {}, "read": {}},  # Granted via settings only.
     "bucket": {
-        "write": {"bucket": ["write"]},
+        "write": {"bucket": ["write", "read"]},
         "read": {"bucket": ["write", "read"]},
         "read:attributes": {"bucket": ["write", "read", "collection:create", "group:create"]},
         "group:create": {"bucket": ["write", "read", "group:create"]},
         "collection:create": {"bucket": ["write", "read", "collection:create"]},
     },
     "group": {
-        "write": {"bucket": ["write"], "group": ["write"]},
+        "write": {"bucket": ["write", "read"], "group": ["write", "read"]},
         "read": {"bucket": ["write", "read"], "group": ["write", "read"]},
     },
     "collection": {
-        "write": {"bucket": ["write"], "collection": ["write"]},
+        "write": {"bucket": ["write", "read"], "collection": ["write", "read"]},
         "read": {"bucket": ["write", "read"], "collection": ["write", "read"]},
         "read:attributes": {
             "bucket": ["write", "read"],
             "collection": ["write", "read", "record:create"],
         },
-        "record:create": {"bucket": ["write"], "collection": ["write", "record:create"]},
+        "record:create": {"bucket": ["write", "read"], "collection": ["write", "read", "record:create"]},
     },
     "record": {
-        "write": {"bucket": ["write"], "collection": ["write"], "record": ["write"]},
+        "write": {"bucket": ["write", "read"], "collection": ["write", "read"], "record": ["write", "read"]},
         "read": {
             "bucket": ["write", "read"],
             "collection": ["write", "read"],
